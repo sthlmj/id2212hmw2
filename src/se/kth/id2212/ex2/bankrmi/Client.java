@@ -16,6 +16,7 @@ public class Client {
     private String bankname;
     String clientname;
 
+    //enum lists of commands available
     static enum CommandName {
         newAccount, getAccount, deleteAccount, deposit, withdraw, balance, quit, help, list;
     };
