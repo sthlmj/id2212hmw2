@@ -1,20 +1,27 @@
 package se.kth.id2212.ex2.bankrmi;
 
+/**
+ * BankImpl.java is the servant class serving Bank.java
+ */
+
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.HashMap;
 import java.util.Map;
 
+// Declaring the remote object
 @SuppressWarnings("serial")
 public class BankImpl extends UnicastRemoteObject implements Bank {
     private String bankName;
     private Map<String, Account> accounts = new HashMap<>();
 
+// Binding reference to remote object in the remote object registry  
     public BankImpl(String bankName) throws RemoteException {
         super();
         this.bankName = bankName;
     }
 
+// Begin: Implementation of remote interface
     @Override
     public synchronized String[] listAccounts() {
         return accounts.keySet().toArray(new String[1]);

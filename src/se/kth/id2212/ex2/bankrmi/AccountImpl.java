@@ -1,9 +1,14 @@
 package se.kth.id2212.ex2.bankrmi;
 
+/**
+ * AccountImpl.java is the servant class serving Account.java
+ */
+
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 @SuppressWarnings("serial")
+// Declaring the remote object
 public class AccountImpl extends UnicastRemoteObject implements Account {
     private float balance = 0;
     private String name;
