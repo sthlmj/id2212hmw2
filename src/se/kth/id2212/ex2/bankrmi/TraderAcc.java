@@ -11,15 +11,15 @@ import java.rmi.RemoteException;
 public interface TraderAcc extends Remote {
     //TODO: THis is the Trader Account interface, for the market activities.. 
     //Similarly to the Account. But the Account is for the bank account. 
-    
-    //shows available products
-    public String listProducts() throws RemoteException; 
-    
-    //put a product up for sale on market
+        
+    //put a product up for sale on the market
     public void sell(String itemName, float price) throws RemoteException, RejectedException; 
     
-    //buy a product available on market
+    //buy a product available on the market
     public void buy(String itemName, float price) throws RemoteException, RejectedException;
+    
+    //shows available products on the market
+    public String listProducts() throws RemoteException; 
 }
 /*
 
