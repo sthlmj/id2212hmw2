@@ -18,6 +18,8 @@ public interface Market extends Remote {
     
     public boolean deleteTraderAcc(String name) throws RemoteException;
     
+    //shows available products on the market
+    public String listProducts() throws RemoteException; 
 }
 
 

@@ -67,6 +67,12 @@ public class MarketImpl extends UnicastRemoteObject implements Market {
     private boolean hasTraderAcc(String name) {
         return traderaccs.get(name) != null;
     }
+
+    //list all products available on the market.
+    @Override
+    public String listProducts() throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }    
 /*
 import java.rmi.RemoteException;

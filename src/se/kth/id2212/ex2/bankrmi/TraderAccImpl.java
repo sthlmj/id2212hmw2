@@ -54,12 +54,19 @@ public class TraderAccImpl extends UnicastRemoteObject implements TraderAcc {
     //put an item up for sale. Similar to newAccount in Account.java
     @Override
     public void sell(String itemName, float price) throws RemoteException, RejectedException {
-        itemName.;
+        
     }
     
     //buy an item that is for sale. Similar to withdraw in Account.java
     @Override
     public void buy(String itemName, float price) throws RemoteException, RejectedException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    //Wish an item, like you put a buy order for certain stock.
+    //wish a product to buy for example: name TSLA, price 1200. Similar to sell method(you put something up) but with a call-back!
+    @Override
+    public void wish(String itemName, float price) throws RemoteException, RejectedException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
@@ -68,6 +75,8 @@ public class TraderAccImpl extends UnicastRemoteObject implements TraderAcc {
     public String listProducts() throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+
 }
 
 /*

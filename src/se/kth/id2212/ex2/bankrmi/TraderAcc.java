@@ -18,6 +18,9 @@ public interface TraderAcc extends Remote {
     //buy a product available on the market
     public void buy(String itemName, float price) throws RemoteException, RejectedException;
     
+    //wish a product to buy for example: name TSLA, price 1200. Similar to sell method but with a call-back!
+    public void wish(String itemName, float price) throws RemoteException, RejectedException;
+    
     //shows available products on the market
     public String listProducts() throws RemoteException; 
 }
