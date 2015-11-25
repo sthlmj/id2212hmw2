@@ -69,14 +69,6 @@ public class TraderAccImpl extends UnicastRemoteObject implements TraderAcc {
     public void wish(String itemName, float price) throws RemoteException, RejectedException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    //show all available products on the market. Similar to "list" command that shows all available accounts.
-    @Override
-    public String listProducts() throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-
 }
 
 /*

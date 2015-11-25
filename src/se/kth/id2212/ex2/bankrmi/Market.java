@@ -3,13 +3,12 @@ package se.kth.id2212.ex2.bankrmi;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 /**
- *
+ * This is the market interface.
  * @author joehulden
  */
 public interface Market extends Remote {    
-    //TODO: make this class an interface. A market interface. Add the MarketImpl so it connects to this Market interface.
     
-    //shows available products on the market
+    //shows all trader accounts
     public String[] listTraderAccs() throws RemoteException; 
         
     public TraderAcc newTraderAcc(String name) throws RemoteException, RejectedException;
@@ -18,8 +17,8 @@ public interface Market extends Remote {
     
     public boolean deleteTraderAcc(String name) throws RemoteException;
     
-    //shows available products on the market
-    public String listProducts() throws RemoteException; 
+    //shows all products on the market
+    public String listProducts() throws RemoteException;
 }
 
 
