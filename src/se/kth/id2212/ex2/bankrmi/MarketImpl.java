@@ -1,4 +1,4 @@
-//MarketImpl.java is the servant class serving Market.java interface
+
 package se.kth.id2212.ex2.bankrmi;
 
 import java.rmi.RemoteException;
@@ -7,11 +7,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * //TODO: This is the servant class for the Market. It is similar to the BankImpl.java
+ * This is the servant class for the Market.java interface. It is similar to the BankImpl.java
  * @author joehulden
  */
 
-//Declaring the remote object
+//Declares the remote object
 @SuppressWarnings("serial")
 public class MarketImpl extends UnicastRemoteObject implements Market {
     
@@ -23,7 +23,7 @@ public class MarketImpl extends UnicastRemoteObject implements Market {
         this.marketName = marketName;
     }
     
-    //metod for listTraderAccs interface on Market.java
+    //method for listTraderAccs interface on Market.java
     @Override
     public synchronized String[] listTraderAccs() {
         
@@ -37,11 +37,11 @@ public class MarketImpl extends UnicastRemoteObject implements Market {
         TraderAccImpl traderacc = (TraderAccImpl) traderaccs.get(name);
         if (traderacc != null) {
             System.out.println("Account exists");
-            throw new RejectedException("Rejected: se.kth.id2212.ex2.bankrmi: " + marketName + " Account for: " + name + " already exists: " + traderacc);
+            throw new RejectedException("Rejected: se.kth.id2212.ex2.marketrmi: " + marketName + " Account for: " + name + " already exists: " + traderacc);
         }
         traderacc = new TraderAccImpl(name);
         traderaccs.put(name, traderacc);
-        System.out.println("se.kth.id2212.ex2.bankrmi: " + marketName + " Account: " + traderacc + " has been created for " + name);
+        System.out.println("se.kth.id2212.ex2.marketrmi: " + marketName + " Account: " + traderacc + " has been created for " + name);
         
         return traderacc;
     }
@@ -59,7 +59,7 @@ public class MarketImpl extends UnicastRemoteObject implements Market {
             return false; 
         }
         traderaccs.remove(name);
-        System.out.println("se.kth.id2212.ex2.bankrmi: " + marketName + " Account for " + name + " has been deleted");
+        System.out.println("se.kth.id2212.ex2.marketrmi: " + marketName + " Account for " + name + " has been deleted");
         return true;
     }
     

@@ -5,24 +5,20 @@ import java.rmi.RemoteException;
 
 
 /**
- *
+ * This is the Trader Account interface. It is Similar to the Account.java class.
  * @author joehulden
  */
 public interface TraderAcc extends Remote {
-    //TODO: THis is the Trader Account interface, for the market activities.. 
-    //Similarly to the Account. But the Account is for the bank account. 
         
     //put a product up for sale on the market
     public void sell(String itemName, float price) throws RemoteException, RejectedException; 
     
-    //buy a product available on the market
+    //buy a product that is available on the market
     public void buy(String itemName, float price) throws RemoteException, RejectedException;
     
-    //wish a product to buy for example: name TSLA, price 1200. Similar to sell method but with a call-back!
+    //wish a product to buy for example: name TSLA, price 1200. Similar to sell method but with a call-back to client!
     public void wish(String itemName, float price) throws RemoteException, RejectedException;
     
-    //shows available products on the market
-    public String listProducts() throws RemoteException; 
 }
 /*
 
