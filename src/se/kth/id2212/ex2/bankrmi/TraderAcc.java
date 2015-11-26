@@ -10,16 +10,10 @@ import java.rmi.RemoteException;
  */
 public interface TraderAcc extends Remote {
         
-    //put a product up for sale on the market
-    public void sell(String itemName, float price) throws RemoteException, RejectedException; 
+   
+    public void itemSold(Item item);
     
-    //buy a product that is available on the market
-    public void buy(String itemName, float price) throws RemoteException, RejectedException;
-    
-    //wish a product to buy for example: name TSLA, price 1200. Similar to sell method but with a call-back to client!
-    public void wish(String itemName, float price) throws RemoteException, RejectedException;
-    
-    
+    public void wishMatched(Item item);
     
 }
 /*

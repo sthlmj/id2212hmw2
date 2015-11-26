@@ -133,6 +133,32 @@ public class MarketImpl extends UnicastRemoteObject implements Market {
     	return out;
     	//throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+	@Override
+	public void sell(TraderAcc t, Item item) throws RemoteException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Item buy(Item item) throws RemoteException, RejectedException {
+		int i = 0;
+		if( (i = items.indexOf(item)) != -1 ) {
+			return items.remove(i);
+		}
+		else{//TODO dra pengar från bankonto
+			throw new RejectedException("Item could not be purchased");
+		}
+		
+	}
+
+	@Override
+	public void wish(Item item) throws RemoteException, RejectedException {
+		
+		whishlist.add(item);
+		
+		
+	}
 }    
 /*
 import java.rmi.RemoteException;
