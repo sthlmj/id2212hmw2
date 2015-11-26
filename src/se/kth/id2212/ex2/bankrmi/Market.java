@@ -14,7 +14,7 @@ public interface Market extends Remote {
         
     public TraderAcc newTraderAcc(String name) throws RemoteException, RejectedException;
     
-    public TraderAcc getTraderAcc(String name) throws RemoteException;
+    public TraderAcc getTraderAcc(String name) throws RemoteException,RejectedException;
     
     public boolean deleteTraderAcc(String name) throws RemoteException;
     

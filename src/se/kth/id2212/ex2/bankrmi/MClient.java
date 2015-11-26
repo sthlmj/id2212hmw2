@@ -104,6 +104,7 @@ public class MClient {
             }
             userInputTokenNo++;
         }
+       
         return new Command(commandName, userName, amount);
     }
 

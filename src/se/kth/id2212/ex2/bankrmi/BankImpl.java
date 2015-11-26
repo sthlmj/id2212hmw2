@@ -13,7 +13,7 @@ import java.util.Map;
 @SuppressWarnings("serial")
 public class BankImpl extends UnicastRemoteObject implements Bank {
     private String bankName;
-    private Map<String, Account> accounts = new HashMap<>();
+    private Map<String, Account> accounts = new HashMap<String, Account>();
 
 // Binding reference to remote object in the remote object registry  
     public BankImpl(String bankName) throws RemoteException {
