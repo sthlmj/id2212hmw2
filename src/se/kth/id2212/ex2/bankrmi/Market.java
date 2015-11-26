@@ -18,6 +18,13 @@ public interface Market extends Remote {
     
     public boolean deleteTraderAcc(String name) throws RemoteException;
     
+    public void sell(TraderAcc t, Item item) throws RemoteException;
+    
+    public Item buy(Item item) throws RemoteException, RejectedException;
+    
+    public void wish(Item item) throws RemoteException, RejectedException;
+    
+    
     //shows all products on the market
     public List<String> listProducts() throws RemoteException;
     
