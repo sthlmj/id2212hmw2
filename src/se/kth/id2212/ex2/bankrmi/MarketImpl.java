@@ -24,7 +24,7 @@ public class MarketImpl extends UnicastRemoteObject implements Market {
     private String marketName;
 	private ArrayList<Item> items = new ArrayList<Item>(); 
 	private ArrayList<TraderAcc> traders = new ArrayList<TraderAcc>();
-	private ArrayList<Item> whishlist = new ArrayList<Item>();
+	private ArrayList<Item> wishlist = new ArrayList<Item>();
     private ArrayList<TraderAcc> traderaccs = new ArrayList<TraderAcc>();
     
     
@@ -53,10 +53,12 @@ public class MarketImpl extends UnicastRemoteObject implements Market {
     public synchronized TraderAcc newTraderAcc(String name) throws RemoteException, RejectedException {
         
     	//Account exists
-    	 if( traderaccs.indexOf(name) != -1){
-    		  System.out.println("Account exists");
-              throw new RejectedException("Rejected: se.kth.id2212.ex2.marketrmi: " + marketName + " Account for: " + name + " already exists");    
-    	 }
+        for(TraderAcc t : traderaccs){
+            if(t.getName().equals(name)){
+                throw new RejectedException("Rejected: se.kth.id2212.ex2.marketrmi: " + marketName + " Account for: " + name + " already exists");  
+            }
+        }
+        
     	 
     	 TraderAcc traderacc = new TraderAccImpl(name);
       
@@ -64,46 +66,51 @@ public class MarketImpl extends UnicastRemoteObject implements Market {
         System.out.println("se.kth.id2212.ex2.marketrmi: " + marketName + " Account: " + traderacc + " has been created for " + name);
         
         return traderacc;
+       
     }
     
     //metod for getTraderAcc interface on Market.java
     @Override
     public synchronized TraderAcc getTraderAcc(String name) throws RejectedException {
-    	
-    	int i;
-    	//Account does not exist
-    	
-    	 try {
-			if( (i =  traderaccs.indexOf(new TraderAccImpl(name))) == -1){
-				 throw new RejectedException("Account " + name + "does not exist");
-			 }
-			 else {
-				 return traderaccs.get(i);
-			 }
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	 return null;
-    	 
-        //return traderaccs.get(name);
+    
+        try {
+                for(TraderAcc t : traderaccs){
+                     if(t.getName().equals(name)){ //account found
+                        return t;  
+                     }
+                 } 
+
+        } catch (RemoteException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+        }
+        //Account does not exist
+    	 throw new RejectedException("Account " + name + "does not exist");
+
     }
 
     //metod for deleteTraderAcc interface on Market.java
     @Override
     public synchronized boolean deleteTraderAcc(String name) {
-        if (!hasTraderAcc(name)) {
-            return true;    //changed from false to true 
-        }
-        traderaccs.remove(name);
-        System.out.println("se.kth.id2212.ex2.marketrmi: " + marketName + " Account for " + name + " has been deleted");
-        return true;
+        try{
+            
+        for(TraderAcc t : traderaccs){
+            if(t.getName().equals(name)){ //account found
+               traderaccs.remove(t);
+               System.out.println("se.kth.id2212.ex2.marketrmi: " + marketName + " Account for " + name + " has been deleted");
+               return true;
+            }
+        } 
+        } catch (RemoteException ex) {
+               
+            }
+        return false;
+     
     }
     
     //metod supporting account check available for delete.
     private boolean hasTraderAcc(String name) {
-        
-       
+            
          try {
             return traderaccs.indexOf(new TraderAccImpl(name)) != -1;
             } catch (RemoteException ex) {
@@ -117,14 +124,13 @@ public class MarketImpl extends UnicastRemoteObject implements Market {
     @Override
     public List<String> listProducts() throws RemoteException {
         
-    	List <String> out = new ArrayList<String>();
+    	List <String> out = new ArrayList<>();
     
     	for(Item i : items){
     		out.add("Name: " + i.name() + " Price: " + i.price());
     	}
 
     	return out;
-    	//throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 	
@@ -132,26 +138,47 @@ public class MarketImpl extends UnicastRemoteObject implements Market {
 	@Override
 	public Item buy(Item item) throws RemoteException, RejectedException {
 		int i = 0;
-		if( (i = items.indexOf(item)) != -1 ) {
+                for(Item it: items) {
+                    if(it.name().equals(item.name()) && it.price() <= item.price()) {
+                        Item temp  = items.remove(i);
+                        temp.trader().itemSold(temp);
+                        return temp;
+                    }
+                    
+                    i++;
+                }
+                
+		/*if( (i = items.indexOf((ItemImpl)item)) != -1 ) {
 			return items.remove(i);
-		}
-		else{//TODO dra pengar från bankonto
+                        //TODO dra pengar från bankonto annars skicka rejectex...
+		}*/
+		
 			throw new RejectedException("Item could not be purchased");
-		}
+		
 		
 	}
 
 	@Override
 	public void wish(Item item) throws RemoteException, RejectedException {
+		try{
+                    Item temp = buy(item);
+                    if(temp != null) { // Item bought
+                        
+                        //Callback item bought
+                        return;
+                    }
+                }catch(RejectedException e){ //Not in market yet
+                    
+                }
 		
-		whishlist.add(item);
-		
-		
+                
+		//TODO kolla om item redan finns till det priset
+		wishlist.add(item);
 	}
 
     @Override
     public void sell(Item item) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        items.add(item);
     }
 }    
 /*

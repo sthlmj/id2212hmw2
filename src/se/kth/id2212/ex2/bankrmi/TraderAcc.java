@@ -10,10 +10,10 @@ import java.rmi.RemoteException;
  */
 public interface TraderAcc extends Remote {
         
-   
-    public void itemSold(Item item);
+    public String getName() throws RemoteException;
+    public void itemSold(Item item) throws RemoteException;
     
-    public void wishMatched(Item item);
+    public void wishMatched(Item item) throws RemoteException;;
     
 }
 /*

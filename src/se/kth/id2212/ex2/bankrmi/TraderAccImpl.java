@@ -1,5 +1,6 @@
 
 package se.kth.id2212.ex2.bankrmi;
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 /**
@@ -7,7 +8,7 @@ import java.rmi.server.UnicastRemoteObject;
  * @author joehulden
  */
 @SuppressWarnings("serial")
-public class TraderAccImpl extends UnicastRemoteObject implements TraderAcc {
+public class TraderAccImpl  implements TraderAcc,Serializable  {
     
     private float balance = 0;
     private String name;
@@ -34,48 +35,14 @@ public class TraderAccImpl extends UnicastRemoteObject implements TraderAcc {
     	return false;
     }
 
-/*
-    @Override
-    public synchronized void deposit(float value) throws RemoteException,
-                                                         RejectedException {
-        if (value < 0) {
-            throw new RejectedException("Rejected: Account " + name + ": Illegal value: " + value);
-        }
-        balance += value;
-        System.out.println("Transaction: Account " + name + ": deposit: $" + value + ", balance: $"
-                           + balance);
-    }
-*/
-    
-/*
-    @Override
-    public synchronized TraderAcc newTraderAcc(String name) throws RemoteException, RejectedException {
-        
-        TraderAccImpl traderacc = (TraderAccImpl) traderaccs.get(name);
-        if (traderacc != null) {
-            System.out.println("Account exists");
-            throw new RejectedException("Rejected: se.kth.id2212.ex2.bankrmi: " + marketName + " Account for: " + name + " already exists: " + traderacc);
-        }
-        traderacc = new TraderAccImpl(name);
-        traderaccs.put(name, traderacc);
-        System.out.println("se.kth.id2212.ex2.bankrmi: " + marketName + " Account: " + traderacc + " has been created for " + name);
-        
-        return traderacc;
-    }
-*/
-
-
-
 	@Override
-	public void itemSold(Item item) {
-		// TODO Auto-generated method stub
-		
+	public void itemSold(Item item) throws RemoteException {
+		System.out.println("Item sold: " + item.name()  + " for " + item.price());
 	}
-
+        
 	@Override
-	public void wishMatched(Item item) {
-		// TODO Auto-generated method stub
-		
+	public void wishMatched(Item item) throws RemoteException {
+		System.out.println("Whished item bought: " + item.name() + " for " + item.price());
 	}
 }
 

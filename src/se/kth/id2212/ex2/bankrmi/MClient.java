@@ -4,8 +4,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.rmi.Naming;
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -27,15 +29,13 @@ public class MClient {
     //Konstruktor
     public MClient(String marketName) {
         this.marketname = marketName;
-        Item i1 = new Item("bil", 200);
-        Item i2 = new Item("bil", 200);
-        
-        System.out.println("bil lika? " + i1.equals(i2));
+       
         try {
             try {
                 LocateRegistry.getRegistry(1099).list();
             } catch (RemoteException e) {
                 LocateRegistry.createRegistry(1099);
+                
             }
             market = (Market) Naming.lookup(marketname); //TODO: Change name to Market
         } catch (Exception e) {
@@ -161,13 +161,14 @@ public class MClient {
             case deleteTraderAcc:
                 mclientname = userName;
                 market.deleteTraderAcc(command.getName());
-                System.out.println("tar faktiskt bort nånting");
                 return;
         }
 
         //TODO: Fix the commands
         // all further commands require a Account reference
         TraderAcc acc = market.getTraderAcc(userName); //TODO: Change name from Account to TraderAcc
+        TraderAcc in = (TraderAcc) UnicastRemoteObject.exportObject(acc,0);
+       
         if (acc == null) {
             System.out.println("No account for " + userName);
             return;
@@ -181,17 +182,18 @@ public class MClient {
                 System.out.println("");
                 break;
             case sell:
-               market.sell( new Item(acc,command.getName() , command.getAmount()));
+                System.out.println("acc " + acc);
+               market.sell( new ItemImpl(in,command.getName() , command.getAmount()));
                 //traderacc.sell(userName, 0);
                 //traderacc.sell(command.getAmount());
                 break;
             case buy:
                 //traderacc.buy(userName, 0);
-                market.buy( new Item(acc,command.getName() , command.getAmount()));
+                market.buy( new ItemImpl(in,command.getName() , command.getAmount()));
                 break;
                 
             case wish:
-                market.wish(new Item(acc,command.getName() , command.getAmount()));
+                market.wish(new ItemImpl(in,command.getName() , command.getAmount()));
                 break;
                 
             case listProducts: 

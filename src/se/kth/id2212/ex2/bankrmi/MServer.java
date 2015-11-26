@@ -20,6 +20,7 @@ public class MServer {
                 LocateRegistry.createRegistry(1099);
             }
             Naming.rebind(marketName, marketobj);
+            
             System.out.println(marketobj + " is ready.");
         } catch (Exception e) {
             e.printStackTrace();
