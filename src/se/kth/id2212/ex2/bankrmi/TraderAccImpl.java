@@ -20,6 +20,18 @@ public class TraderAccImpl extends UnicastRemoteObject implements TraderAcc {
         super();
         this.name = name;
     }
+    
+    public String getName(){
+    	return this.name;
+    }
+    
+    @Override
+    public boolean equals(Object obj){
+    	if(obj instanceof TraderAcc){
+    		return ((TraderAccImpl) obj ).name.equals(this.name);
+    	}
+    	return false;
+    }
 
 /*
     @Override
