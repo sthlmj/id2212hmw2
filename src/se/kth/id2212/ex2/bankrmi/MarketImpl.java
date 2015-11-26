@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 
@@ -98,7 +100,7 @@ public class MarketImpl extends UnicastRemoteObject implements Market {
     @Override
     public synchronized boolean deleteTraderAcc(String name) {
         if (!hasTraderAcc(name)) {
-            return false; 
+            return true;    //changed from false to true 
         }
         traderaccs.remove(name);
         System.out.println("se.kth.id2212.ex2.marketrmi: " + marketName + " Account for " + name + " has been deleted");
@@ -107,7 +109,15 @@ public class MarketImpl extends UnicastRemoteObject implements Market {
     
     //metod supporting account check available for delete.
     private boolean hasTraderAcc(String name) {
-        return traderaccs.indexOf(name) != -1;
+        
+       
+         try {
+            return traderaccs.indexOf(new TraderAccImpl(name)) != -1;
+            } catch (RemoteException ex) {
+               
+            }
+        
+        return false;
     }
 
     //list all products available on the market.

@@ -137,24 +137,25 @@ public class MClient {
 
         //TODO: Fix the commands.
         // all further commands require a name to be specified
-        String userName = command.getUserName();
+        String userName = mclientname;
         if (userName == null) {
-            userName = mclientname;
+            userName = command.getName();
         }
 
         if (userName == null) {
             System.out.println("name is not specified");
             return;
         }
-
+        System.out.println("Commando: " + command.getCommandName() + " value " + command.getName());
         switch (command.getCommandName()) {
             case newTraderAcc:
                 mclientname = userName;
-                marketobj.newTraderAcc(userName);
+                marketobj.newTraderAcc(command.getName());
                 return;
             case deleteTraderAcc:
                 mclientname = userName;
-                marketobj.deleteTraderAcc(userName);
+                marketobj.deleteTraderAcc(command.getName());
+                System.out.println("tar faktiskt bort nånting");
                 return;
         }
 
@@ -171,7 +172,7 @@ public class MClient {
 
         switch (command.getCommandName()) {
             case getTraderAcc:
-                System.out.println(traderacc);
+                System.out.println("");
                 break;
             case sell:
                 traderacc.sell(userName, 0);
@@ -192,12 +193,12 @@ public class MClient {
 
     //TODO: Fix the commands
     private class Command {
-        private String userName;
+        private String name;
         private float amount;
         private CommandName commandName;
 
-        private String getUserName() {
-            return userName;
+        private String getName() {
+            return name;
         }
 
         private float getAmount() {
@@ -210,7 +211,7 @@ public class MClient {
 
         private Command(MClient.CommandName commandName, String userName, float amount) {
             this.commandName = commandName;
-            this.userName = userName;
+            this.name = userName;
             this.amount = amount;
         }
     }
