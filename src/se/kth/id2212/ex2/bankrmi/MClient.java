@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
+import java.util.List;
 import java.util.StringTokenizer;
 
 public class MClient {
@@ -13,7 +14,7 @@ public class MClient {
     private static final String USAGE = "java MClient <market_rmi_url>";
     private static final String DEFAULT_MARKET_NAME = "JMart";
     TraderAcc traderacc; //TODO: Change name to TraderAcc
-    Market marketobj; //TODO: Change name to Market
+    Market market; //TODO: Change name to Market
     private String marketname;
     String mclientname;
 
@@ -26,13 +27,17 @@ public class MClient {
     //Konstruktor
     public MClient(String marketName) {
         this.marketname = marketName;
+        Item i1 = new Item("bil", 200);
+        Item i2 = new Item("bil", 200);
+        
+        System.out.println("bil lika? " + i1.equals(i2));
         try {
             try {
                 LocateRegistry.getRegistry(1099).list();
             } catch (RemoteException e) {
                 LocateRegistry.createRegistry(1099);
             }
-            marketobj = (Market) Naming.lookup(marketname); //TODO: Change name to Market
+            market = (Market) Naming.lookup(marketname); //TODO: Change name to Market
         } catch (Exception e) {
             System.out.println("The runtime failed: " + e.getMessage());
             System.exit(0);
@@ -117,7 +122,7 @@ public class MClient {
         switch (command.getCommandName()) {
             case listTraderAccs: //TODO: Rename from list to listTraderAccs
                 try {
-                    for (String accountHolder : marketobj.listTraderAccs()) {
+                    for (String accountHolder : market.listTraderAccs()) {
                         System.out.println(accountHolder);
                     }
                 } catch (Exception e) {
@@ -150,18 +155,19 @@ public class MClient {
         switch (command.getCommandName()) {
             case newTraderAcc:
                 mclientname = userName;
-                marketobj.newTraderAcc(command.getName());
+                
+                market.newTraderAcc(command.getName());
                 return;
             case deleteTraderAcc:
                 mclientname = userName;
-                marketobj.deleteTraderAcc(command.getName());
+                market.deleteTraderAcc(command.getName());
                 System.out.println("tar faktiskt bort nånting");
                 return;
         }
 
         //TODO: Fix the commands
         // all further commands require a Account reference
-        TraderAcc acc = marketobj.getTraderAcc(userName); //TODO: Change name from Account to TraderAcc
+        TraderAcc acc = market.getTraderAcc(userName); //TODO: Change name from Account to TraderAcc
         if (acc == null) {
             System.out.println("No account for " + userName);
             return;
@@ -175,17 +181,26 @@ public class MClient {
                 System.out.println("");
                 break;
             case sell:
-                traderacc.sell(userName, 0);
+               market.sell( new Item(acc,command.getName() , command.getAmount()));
+                //traderacc.sell(userName, 0);
                 //traderacc.sell(command.getAmount());
                 break;
             case buy:
-                traderacc.buy(userName, 0);
-                //traderacc.buy(command.getAmount());
+                //traderacc.buy(userName, 0);
+                market.buy( new Item(acc,command.getName() , command.getAmount()));
                 break;
-            /*case balance:
-                System.out.println("balance: $" + traderacc.getBalance());
+                
+            case wish:
+                market.wish(new Item(acc,command.getName() , command.getAmount()));
                 break;
-            */
+                
+            case listProducts: 
+              List<String> l =  market.listProducts();
+              for(String str : l){
+                  System.out.println(str);
+              }
+             break; 
+            
             default:
                 System.out.println("Illegal command");
         }

@@ -57,16 +57,9 @@ public class MarketImpl extends UnicastRemoteObject implements Market {
     		  System.out.println("Account exists");
               throw new RejectedException("Rejected: se.kth.id2212.ex2.marketrmi: " + marketName + " Account for: " + name + " already exists");    
     	 }
-    	
-       /* TraderAccImpl traderacc = traderaccs(name);
-        		new TraderAccImpl(name);*/
-        		//(TraderAccImpl) traderaccs.get(name);
-       /* if (traderacc != null) {
-            System.out.println("Account exists");
-            throw new RejectedException("Rejected: se.kth.id2212.ex2.marketrmi: " + marketName + " Account for: " + name + " already exists: " + traderacc);
-        }*/
+    	 
     	 TraderAcc traderacc = new TraderAccImpl(name);
-       // traderaccs.put(name, traderacc);
+      
         traderaccs.add(traderacc);
         System.out.println("se.kth.id2212.ex2.marketrmi: " + marketName + " Account: " + traderacc + " has been created for " + name);
         
@@ -134,11 +127,7 @@ public class MarketImpl extends UnicastRemoteObject implements Market {
     	//throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-	@Override
-	public void sell(TraderAcc t, Item item) throws RemoteException {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	@Override
 	public Item buy(Item item) throws RemoteException, RejectedException {
@@ -159,6 +148,11 @@ public class MarketImpl extends UnicastRemoteObject implements Market {
 		
 		
 	}
+
+    @Override
+    public void sell(Item item) throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }    
 /*
 import java.rmi.RemoteException;

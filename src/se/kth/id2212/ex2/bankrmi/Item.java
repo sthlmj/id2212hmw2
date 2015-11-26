@@ -5,14 +5,14 @@ public class Item {
 
 	private TraderAcc trader;
 	private String name;
-	private int price;
+	private float price;
 	
-	public Item(String name, int price){
+	public Item(String name, float price){
 		this.name = name;
 		this.price = price;
 	}
 	
-	public Item(TraderAcc trader, String name, int price){
+	public Item(TraderAcc trader, String name, float price){
 		this.name = name;
 		this.price = price;
 	}
@@ -21,7 +21,7 @@ public class Item {
 		return name;
 	}
 
-	public int price() {
+	public float price() {
 		return price;
 	}
 	
@@ -32,4 +32,5 @@ public class Item {
 		}
 		return false;
 	}
+        
 }

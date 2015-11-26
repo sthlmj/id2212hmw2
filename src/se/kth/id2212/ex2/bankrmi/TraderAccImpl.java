@@ -27,6 +27,7 @@ public class TraderAccImpl extends UnicastRemoteObject implements TraderAcc {
     
     @Override
     public boolean equals(Object obj){
+        System.out.println("anropas ");
     	if(obj instanceof TraderAcc){
     		return ((TraderAccImpl) obj ).name.equals(this.name);
     	}
