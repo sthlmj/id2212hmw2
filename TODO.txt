@@ -1,0 +1,10 @@
+FIXA	sell
+FIXA	buy
+FIXA	wish
+FIXA	listProducts
+OK		listTraderAccs
+OK		newTraderAcc
+OK		getTraderAcc
+FIXA	deleteTraderAcc
+OK		quit
+OK		help
