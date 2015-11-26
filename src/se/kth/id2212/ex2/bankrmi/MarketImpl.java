@@ -4,6 +4,7 @@ package se.kth.id2212.ex2.bankrmi;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -70,7 +71,7 @@ public class MarketImpl extends UnicastRemoteObject implements Market {
 
     //list all products available on the market.
     @Override
-    public String listProducts() throws RemoteException {
+    public List<String> listProducts() throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }    

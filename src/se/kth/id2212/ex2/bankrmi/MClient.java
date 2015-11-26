@@ -9,7 +9,7 @@ import java.rmi.registry.LocateRegistry;
 import java.util.StringTokenizer;
 
 public class MClient {
-    //private static final String USAGE = "java bankrmi.MClient <market_url>";
+
     private static final String USAGE = "java MClient <market_rmi_url>";
     private static final String DEFAULT_MARKET_NAME = "JMart";
     TraderAcc traderacc; //TODO: Change name to TraderAcc

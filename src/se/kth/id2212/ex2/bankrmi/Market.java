@@ -2,6 +2,7 @@
 package se.kth.id2212.ex2.bankrmi;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.List;
 /**
  * This is the market interface.
  * @author joehulden
@@ -18,7 +19,8 @@ public interface Market extends Remote {
     public boolean deleteTraderAcc(String name) throws RemoteException;
     
     //shows all products on the market
-    public String listProducts() throws RemoteException;
+    public List<String> listProducts() throws RemoteException;
+    
 }
 
 
