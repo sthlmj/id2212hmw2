@@ -151,7 +151,7 @@ public class MClient {
             System.out.println("name is not specified");
             return;
         }
-        System.out.println("Commando: " + command.getCommandName() + " value " + command.getName());
+        
         switch (command.getCommandName()) {
             case newTraderAcc:
                 mclientname = userName;
@@ -179,7 +179,8 @@ public class MClient {
 
         switch (command.getCommandName()) {
             case getTraderAcc:
-                System.out.println("");
+                acc = market.getTraderAcc(command.getName());
+                mclientname = acc.getName();
                 break;
             case sell:
                 System.out.println("acc " + acc);

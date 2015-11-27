@@ -2,7 +2,6 @@
 package se.kth.id2212.ex2.bankrmi;
 import java.io.Serializable;
 import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 /**
  *TODO: This is the servant class for the TraderAcc interface. It is similar to the AccountImpl
  * @author joehulden

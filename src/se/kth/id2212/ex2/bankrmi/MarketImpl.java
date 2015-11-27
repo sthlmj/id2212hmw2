@@ -1,7 +1,9 @@
 
 package se.kth.id2212.ex2.bankrmi;
 
+import java.rmi.Naming;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,17 +24,27 @@ import java.util.logging.Logger;
 public class MarketImpl extends UnicastRemoteObject implements Market {
     
     private String marketName;
-	private ArrayList<Item> items = new ArrayList<Item>(); 
-	private ArrayList<TraderAcc> traders = new ArrayList<TraderAcc>();
-	private ArrayList<Item> wishlist = new ArrayList<Item>();
+    private ArrayList<Item> items = new ArrayList<Item>(); 
+    private ArrayList<TraderAcc> traders = new ArrayList<TraderAcc>();
+    private ArrayList<Item> wishlist = new ArrayList<Item>();
     private ArrayList<TraderAcc> traderaccs = new ArrayList<TraderAcc>();
-    
-    
-    //private Map<String, TraderAcc> traderaccs = new HashMap<>();
+    private Bank bank;
     
     public MarketImpl(String marketName) throws RemoteException {
         super();
         this.marketName = marketName;
+        try {
+            try {
+                LocateRegistry.getRegistry(1099).list();
+            } catch (RemoteException e) {
+                LocateRegistry.createRegistry(1099);
+            }
+            bank = (Bank) Naming.lookup("Nordea");
+            
+        } catch (Exception e) {
+            System.out.println("The runtime failed: " + e.getMessage());
+            System.exit(0);
+        }
     }
     
     //method for listTraderAccs interface on Market.java
@@ -107,18 +119,6 @@ public class MarketImpl extends UnicastRemoteObject implements Market {
         return false;
      
     }
-    
-    //metod supporting account check available for delete.
-    private boolean hasTraderAcc(String name) {
-            
-         try {
-            return traderaccs.indexOf(new TraderAccImpl(name)) != -1;
-            } catch (RemoteException ex) {
-               
-            }
-        
-        return false;
-    }
 
     //list all products available on the market.
     @Override
@@ -131,53 +131,59 @@ public class MarketImpl extends UnicastRemoteObject implements Market {
     	}
 
     	return out;
+    }	
+
+    @Override
+    public Item buy(Item item) throws RemoteException, RejectedException {
+        
+        Account buyer = bank.getAccount(item.trader().getName());
+        if(buyer == null) {
+            throw new RejectedException("You have no bank account");
+        }
+            int i = 0;
+            for(Item it: items) {
+                if(it.name().equals(item.name()) && it.price() <= item.price()) {
+                    buyer.withdraw(it.price());
+                    bank.getAccount(it.trader().getName()).deposit(it.price());
+                    Item temp  = items.remove(i);
+                    temp.trader().itemSold(temp);
+                    return temp;
+                }
+
+                i++;
+            }
+
+                    throw new RejectedException("Item could not be purchased");
+
+
     }
 
-	
-
-	@Override
-	public Item buy(Item item) throws RemoteException, RejectedException {
-		int i = 0;
-                for(Item it: items) {
-                    if(it.name().equals(item.name()) && it.price() <= item.price()) {
-                        Item temp  = items.remove(i);
-                        temp.trader().itemSold(temp);
-                        return temp;
-                    }
-                    
-                    i++;
-                }
-                
-		/*if( (i = items.indexOf((ItemImpl)item)) != -1 ) {
-			return items.remove(i);
-                        //TODO dra pengar från bankonto annars skicka rejectex...
-		}*/
-		
-			throw new RejectedException("Item could not be purchased");
-		
-		
-	}
-
-	@Override
-	public void wish(Item item) throws RemoteException, RejectedException {
+    @Override
+    public void wish(Item item) throws RemoteException, RejectedException {
 		try{
                     Item temp = buy(item);
                     if(temp != null) { // Item bought
                         
+                        temp.trader().wishMatched(temp);
                         //Callback item bought
                         return;
                     }
                 }catch(RejectedException e){ //Not in market yet
                     
                 }
-		
-                
-		//TODO kolla om item redan finns till det priset
 		wishlist.add(item);
 	}
 
     @Override
     public void sell(Item item) throws RemoteException {
+        
+        for(Item it: wishlist) {
+            
+            if(item.name().equals(it.name())  && item.price() <= it.price()) {
+                it.trader().wishMatched(item);
+                return;
+            }  
+        }
         items.add(item);
     }
 }    
