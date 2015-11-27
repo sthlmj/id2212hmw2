@@ -41,7 +41,7 @@ public class TraderAccImpl  implements TraderAcc,Serializable  {
         
 	@Override
 	public void wishMatched(Item item) throws RemoteException {
-		System.out.println("Whished item bought: " + item.name() + " for " + item.price());
+		System.out.println("Wished item its on the market: " + item.name() + " for " + item.price());
 	}
 }
 
