@@ -10,17 +10,17 @@
             </bookmark>
             <bookmark id="1">
                 <name/>
-                <line>116</line>
+                <line>125</line>
                 <key/>
             </bookmark>
             <bookmark id="5">
                 <name/>
-                <line>126</line>
+                <line>136</line>
                 <key/>
             </bookmark>
             <bookmark id="4">
                 <name/>
-                <line>128</line>
+                <line>138</line>
                 <key/>
             </bookmark>
         </file>
@@ -34,12 +34,14 @@
             <file>file:/Users/joehulden/Documents/GitHub/id2212hmw2/src/se/kth/id2212/ex2/bankrmi/TraderAccImpl.java</file>
             <file>file:/Users/joehulden/Documents/GitHub/id2212hmw2/src/se/kth/id2212/ex2/bankrmi/TraderAcc.java</file>
             <file>file:/Users/joehulden/Documents/GitHub/id2212hmw2/src/se/kth/id2212/ex2/bankrmi/Server.java</file>
+            <file>file:/Users/joehulden/Documents/GitHub/id2212hmw2/src/se/kth/id2212/ex2/bankrmi/Item.java</file>
             <file>file:/Users/joehulden/Documents/GitHub/id2212hmw2/src/se/kth/id2212/ex2/bankrmi/MServer.java</file>
             <file>file:/Users/joehulden/Documents/GitHub/id2212hmw2/src/se/kth/id2212/ex2/bankrmi/RejectedException.java</file>
             <file>file:/Users/joehulden/Documents/GitHub/id2212hmw2/src/se/kth/id2212/ex2/bankrmi/Market.java</file>
             <file>file:/Users/joehulden/Documents/GitHub/id2212hmw2/src/se/kth/id2212/ex2/bankrmi/AccountImpl.java</file>
             <file>file:/Users/joehulden/Documents/GitHub/id2212hmw2/src/se/kth/id2212/ex2/bankrmi/BankImpl.java</file>
             <file>file:/Users/joehulden/Documents/GitHub/id2212hmw2/src/se/kth/id2212/ex2/bankrmi/MClient.java</file>
+            <file>file:/Users/joehulden/Documents/GitHub/id2212hmw2/src/se/kth/id2212/ex2/bankrmi/ItemImpl.java</file>
         </group>
     </open-files>
 </project-private>

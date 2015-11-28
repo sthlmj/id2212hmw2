@@ -5,7 +5,6 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 
 public class MServer {
-    //private static final String USAGE = "java bankrmi.MServer <market_rmi_url>";
     private static final String USAGE = "java MServer <market_rmi_url>";
     private static final String MARKET = "JMart";
 
@@ -27,6 +26,7 @@ public class MServer {
         }
     }
 
+    //startar Market Server
     public static void main(String[] args) {
         if (args.length > 1 || (args.length > 0 && args[0].equalsIgnoreCase("-h"))) {
             System.out.println(USAGE);
@@ -39,7 +39,6 @@ public class MServer {
         } else {
             marketName = MARKET;
         }
-
         new MServer(marketName);
     }
 }
