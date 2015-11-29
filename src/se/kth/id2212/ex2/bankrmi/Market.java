@@ -9,7 +9,6 @@ import java.util.List;
  */
 public interface Market extends Remote {    
     
-    //shows all trader accounts
     public String[] listTraderAccs() throws RemoteException; 
         
     public TraderAcc newTraderAcc(String name) throws RemoteException, RejectedException;
@@ -24,27 +23,5 @@ public interface Market extends Remote {
     
     public void wish(Item item) throws RemoteException, RejectedException;
     
-    
-    //shows all products on the market
-    public List<String> listProducts() throws RemoteException;
-    
+    public List<String> listProducts() throws RemoteException;   
 }
-
-
-/*
-package se.kth.id2212.ex2.bankrmi;
-
-import java.rmi.Remote;
-import java.rmi.RemoteException;
-
-public interface Bank extends Remote {
-    public Account newAccount(String name) throws RemoteException, RejectedException;
-
-    public Account getAccount(String name) throws RemoteException;
-
-    public boolean deleteAccount(String name) throws RemoteException;
-
-    public String[] listAccounts() throws RemoteException;
-}
-
-*/

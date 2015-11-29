@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package se.kth.id2212.ex2.bankrmi;
 
 import java.rmi.RemoteException;
@@ -37,6 +33,7 @@ public class ItemImpl extends UnicastRemoteObject implements Item  {
 		return price;
 	}
 	
+        //Obsolute
 	@Override
 	public boolean equals(Object obj){
             System.out.println("jämnförs");
@@ -50,5 +47,4 @@ public class ItemImpl extends UnicastRemoteObject implements Item  {
         public TraderAcc trader()  {
             return trader;
         }
-    
 }
